@@ -25,8 +25,10 @@ const Pagination: React.FC<PaginationProps> = ({
         <button onClick={() => handlePageChange(i)}>
           <li
             key={i}
-            className={`m-2 p-2 bg-red-900 text-white rounded-md shadow-sm hover:text-gray-800 hover:bg-lime-300 ${
-              currentPage === i ? ' text-gray-800 bg-lime-300' : ''
+            className={`m-2 p-2 shadow-sm rounded ${
+              currentPage === i
+                ? 'text-gray-800 bg-lime-300 hover:text-white hover:bg-red-900'
+                : 'text-white bg-red-900  hover:text-gray-800 hover:bg-lime-300'
             }`}>
             {i}
           </li>
