@@ -1,9 +1,9 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import BlogPost from '../types/BlogPostType';
+import BlogPostProps from '../types/BlogPostProps';
 
 const BlogPostPage: React.FC = () => {
-  const [blogPost, setBlogPost] = React.useState<BlogPost | null>(null);
+  const [blogPost, setBlogPost] = React.useState<BlogPostProps | null>(null);
   const { id } = useParams<{ id: string }>();
   const fetchAPI = 'https://jsonplaceholder.typicode.com/posts/';
 
@@ -11,7 +11,7 @@ const BlogPostPage: React.FC = () => {
     const fetchBlogPost = async () => {
       try {
         const response = await fetch(`${fetchAPI}${id}`);
-        const data: BlogPost = await response.json();
+        const data: BlogPostProps = await response.json();
         setBlogPost(data);
       } catch (error) {
         console.error('Error fetching blog post:', error);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import BlogListProps from '../types/BlogListType';
+import BlogListProps from '../types/BlogListProps';
 import Pagination from './Pagination';
 
 const BlogList: React.FC<BlogListProps> = ({ blogPosts }) => {

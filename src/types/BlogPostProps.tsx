@@ -1,4 +1,4 @@
-export default interface BlogPost {
+export default interface BlogPostProps {
   userId: number;
   id: string;
   title: string;
