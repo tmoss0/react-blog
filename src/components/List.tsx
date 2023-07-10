@@ -16,14 +16,15 @@ const BlogList: React.FC<BlogListProps> = ({ blogPosts }) => {
   };
 
   return (
-    <div>
+    <div className='container mx-auto'>
       <div className='flex flex-col items-left'>
         <div className='columns-1 md:columns-2 lg:columns-3 flex-auto p-5'>
           {currentPosts.map((post) => (
             <div className='m-2 p-2 md:m-4 md:p-4' key={post.id}>
-              <h4 className='text-2xl'>{post.title}</h4>
-              <p>{post.body}</p>
-              <Link to={`/post/${post.id}`}>Read More</Link>
+              <h4 className='text-2xl mb-2 font-semibold'>{post.title}</h4>
+              <Link to={`/${post.id}`} className='text-lg'>
+                Read More
+              </Link>
             </div>
           ))}
         </div>

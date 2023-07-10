@@ -28,7 +28,7 @@ const App: React.FC = () => {
       <div className='App'>
         <Routes>
           <Route path='/' element={<BlogList blogPosts={blogPosts} />} />
-          <Route path='/post/:id' element={<BlogPostPage />} />
+          <Route path='/:id' element={<BlogPostPage />} />
         </Routes>
       </div>
     </Router>
