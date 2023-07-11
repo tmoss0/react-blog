@@ -1,11 +1,5 @@
 import React from 'react';
-
-interface PaginationProps {
-  totalCount: number;
-  currentPage: number;
-  postsPerPage: number;
-  onPageChange: (page: number) => void;
-}
+import PaginationProps from '../types/PaginationProps';
 
 const Pagination: React.FC<PaginationProps> = ({
   totalCount,
@@ -16,6 +10,22 @@ const Pagination: React.FC<PaginationProps> = ({
   const totalPages = Math.ceil(totalCount / postsPerPage);
   const handlePageChange = (page: number) => {
     onPageChange(page);
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      onPageChange(currentPage + 1);
+    } else if (currentPage === totalPages) {
+      onPageChange(1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      onPageChange(currentPage - 1);
+    } else if (currentPage === 1) {
+      onPageChange(10);
+    }
   };
 
   const renderPageNumbers = () => {
@@ -39,9 +49,23 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <ul className='flex flex-initial flex-row mx-auto'>
-      {renderPageNumbers()}
-    </ul>
+    <div className='flex flex-auto'>
+      <ul className='flex flex-initial flex-row mx-auto'>
+        <li
+          className={`flex flex-auto text-xl ${
+            currentPage === totalPages ? 'disabled' : ''
+          }`}>
+          <button onClick={handlePrevPage}>&#8592;</button>
+        </li>
+        {renderPageNumbers()}
+        <li
+          className={`flex flex-auto text-xl ${
+            currentPage === 1 ? 'disabled' : ''
+          }`}>
+          <button onClick={handleNextPage}>&#8594;</button>
+        </li>
+      </ul>
+    </div>
   );
 };
 
