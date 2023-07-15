@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import BlogList from './components/List';
 import BlogPostPage from './components/Post';
 import BlogPostProps from './types/BlogPostProps';
+import { fetchAPI } from './constants';
 
 const App: React.FC = () => {
   const [blogPosts, setBlogPosts] = useState<BlogPostProps[]>([]);
@@ -10,9 +11,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetchBlogPosts = async () => {
       try {
-        const response = await fetch(
-          'https://jsonplaceholder.typicode.com/posts'
-        );
+        const response = await fetch(fetchAPI);
         const data: BlogPostProps[] = await response.json();
         setBlogPosts(data);
       } catch (error) {
