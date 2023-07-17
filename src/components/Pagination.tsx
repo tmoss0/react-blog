@@ -7,7 +7,8 @@ const Pagination: React.FC<PaginationProps> = ({
   postsPerPage,
   onPageChange,
 }) => {
-  const totalPages = Math.ceil(totalCount / postsPerPage);
+  const totalPages = React.useMemo(() => Math.ceil(totalCount / postsPerPage), [totalCount, postsPerPage]);
+  const pages = React.useMemo(() => new Array(totalPages).fill(''), [totalPages]);
   const handlePageChange = (page: number) => {
     onPageChange(page);
   };
@@ -28,26 +29,6 @@ const Pagination: React.FC<PaginationProps> = ({
     }
   };
 
-  const renderPageNumbers = () => {
-    const pageNumbers = [];
-    for (let i = 1; i <= totalPages; i++) {
-      pageNumbers.push(
-        <button onClick={() => handlePageChange(i)}>
-          <li
-            key={i}
-            className={`m-2 p-2 shadow-sm rounded ${
-              currentPage === i
-                ? 'text-gray-800 bg-lime-300 hover:text-white hover:bg-red-900'
-                : 'text-white bg-red-900  hover:text-gray-800 hover:bg-lime-300'
-            }`}>
-            {i}
-          </li>
-        </button>
-      );
-    }
-    return pageNumbers;
-  };
-
   return (
     <div className='flex flex-auto'>
       <ul className='flex flex-initial flex-row mx-auto'>
@@ -57,7 +38,19 @@ const Pagination: React.FC<PaginationProps> = ({
           }`}>
           <button onClick={handlePrevPage}>&#8592;</button>
         </li>
-        {renderPageNumbers()}
+        {pages.map((p, i) => (
+          <button onClick={() => handlePageChange(i + 1)}>
+            <li
+              key={i}
+              className={`m-2 p-2 shadow-sm rounded ${
+                currentPage === i + 1
+                  ? 'text-gray-800 bg-lime-300 hover:text-white hover:bg-red-900'
+                  : 'text-white bg-red-900  hover:text-gray-800 hover:bg-lime-300'
+              }`}>
+              {i + 1}
+            </li>
+          </button>
+        ))}
         <li
           className={`flex flex-auto text-xl ${
             currentPage === 1 ? 'disabled' : ''

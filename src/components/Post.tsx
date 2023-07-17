@@ -1,12 +1,12 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import BlogPostProps from '../types/BlogPostProps';
+import { fetchAPI } from '../constants';
 
 const BlogPostPage: React.FC = () => {
   const [blogPost, setBlogPost] = React.useState<BlogPostProps | null>(null);
   const { id } = useParams<{ id: string }>();
-  const fetchAPI = 'https://jsonplaceholder.typicode.com/posts/';
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     const fetchBlogPost = async () => {
@@ -25,10 +25,7 @@ const BlogPostPage: React.FC = () => {
     return <div>Loading...</div>;
   }
 
-  const goHome = () => {
-    let path = `/`;
-    navigate(path);
-  };
+  const goHome = () => navigate('/');
 
   return (
     <div className='container mx-auto p-5'>
