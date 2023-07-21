@@ -19,19 +19,14 @@ const Pagination: React.FC<PaginationProps> = ({
     onPageChange(page);
   };
 
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      onPageChange(currentPage + 1);
-    } else if (currentPage === totalPages) {
+  const handlePageClick = (page: number) => {
+    if (page === currentPage) return;
+    if (page < 1) {
+      onPageChange(totalPages);
+    } else if (page > totalPages) {
       onPageChange(1);
-    }
-  };
-
-  const handlePrevPage = () => {
-    if (currentPage > 1) {
-      onPageChange(currentPage - 1);
-    } else if (currentPage === 1) {
-      onPageChange(10);
+    } else {
+      onPageChange(page);
     }
   };
 
@@ -42,7 +37,9 @@ const Pagination: React.FC<PaginationProps> = ({
           className={`flex flex-auto text-xl ${
             currentPage === totalPages ? 'disabled' : ''
           }`}>
-          <button onClick={handlePrevPage}>&#8592;</button>
+          <button onClick={() => handlePageClick(currentPage - 1)}>
+            &#8592;
+          </button>
         </li>
         {pages.map((p, i) => (
           <button onClick={() => handlePageChange(i + 1)}>
@@ -61,7 +58,9 @@ const Pagination: React.FC<PaginationProps> = ({
           className={`flex flex-auto text-xl ${
             currentPage === 1 ? 'disabled' : ''
           }`}>
-          <button onClick={handleNextPage}>&#8594;</button>
+          <button onClick={() => handlePageClick(currentPage + 1)}>
+            &#8594;
+          </button>
         </li>
       </ul>
     </div>
