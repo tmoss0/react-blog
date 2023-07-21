@@ -7,9 +7,18 @@ const BlogList: React.FC<BlogListProps> = ({ blogPosts }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [postsPerPage] = useState<number>(10);
 
-  const indexOfLastPost = React.useMemo(() => currentPage * postsPerPage, [currentPage, postsPerPage]);
-  const indexOfFirstPost = React.useMemo(() => indexOfLastPost - postsPerPage, [indexOfLastPost, postsPerPage]);
-  const currentPosts = React.useMemo(() => blogPosts.slice(indexOfFirstPost, indexOfLastPost), [indexOfFirstPost, indexOfLastPost]);
+  const indexOfLastPost = React.useMemo(
+    () => currentPage * postsPerPage,
+    [currentPage, postsPerPage]
+  );
+  const indexOfFirstPost = React.useMemo(
+    () => indexOfLastPost - postsPerPage,
+    [indexOfLastPost, postsPerPage]
+  );
+  const currentPosts = React.useMemo(
+    () => blogPosts.slice(indexOfFirstPost, indexOfLastPost),
+    [blogPosts, indexOfFirstPost, indexOfLastPost]
+  );
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
